@@ -18,10 +18,10 @@ func main() {
 
 	server := gin.Default()
 
-	server.Use(middleware.BasicAuth())
+	server.Use()
 
 	server.GET("/", http.PlaygroundHandler())
-	server.POST("/query", http.GraphQLHandler())
+	server.POST("/query", middleware.AuthorizeJWT(), http.GraphQLHandler())
 	server.Run(defaultPort)
 
 }
